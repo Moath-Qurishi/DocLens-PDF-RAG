@@ -12,7 +12,7 @@ Copy-Item .env.example .env
 notepad .env
 ```
 
-Replace `replace\_with\_your\_key` with your actual API key, keeping `OPENAI\_API\_KEY=` at the start of the line. Save and close Notepad. If you already have a working `.env`, copy it from the old project instead of overwriting it. Never commit `.env` or share screenshots of its contents. Revoke any key previously exposed. API usage requires available billing/credits.
+Replace `replace\\\_with\\\_your\\\_key` with your actual API key, keeping `OPENAI\\\_API\\\_KEY=` at the start of the line. Save and close Notepad. If you already have a working `.env`, copy it from the old project instead of overwriting it. Never commit `.env` or share screenshots of its contents. Revoke any key previously exposed. API usage requires available billing/credits.
 
 ```powershell
 python app.py
@@ -42,7 +42,7 @@ Open http://127.0.0.1:5000. Stop any old Flask server first with Ctrl+C. Upload 
 
 **Pipeline:** PDF upload → pypdf text extraction → overlapping chunks of up to 900 characters → OpenAI `text-embedding-3-small` → SQLite → question embedding → cosine similarity → top four chunks → `gpt-4o-mini` → answer and cited excerpts. Chunk overlap reduces loss of context across boundaries; character-based chunking is easy to understand but can split words. Embeddings are numerical vectors representing semantic content.
 
-**Cosine similarity:** `cos(q,v) = dot(q,v) / (norm(q) \* norm(v))`. Higher scores indicate closer vector directions, not a probability or answer accuracy. NumPy ranks the vectors. A linear search is simple and suitable for a small library; a dedicated vector index is a possible future improvement.
+**Cosine similarity:** `cos(q,v) = dot(q,v) / (norm(q) \\\* norm(v))`. Higher scores indicate closer vector directions, not a probability or answer accuracy. NumPy ranks the vectors. A linear search is simple and suitable for a small library; a dedicated vector index is a possible future improvement.
 
 **Backend:** Flask serves the HTML and exposes `GET /api/documents`, `POST /api/upload`, `POST /api/ask`, and `POST /api/delete`. The frontend uses Fetch. The API key remains server-side. SQLite persists text and vectors between restarts. No external database setup is needed.
 
@@ -55,7 +55,7 @@ python evaluate.py
 python evaluate.py --live
 ```
 
-The first command runs offline tests with a fake client, no key or paid API usage. The second uses OpenAI and the included sample PDF in a temporary database, leaving your own library unchanged. Six questions cover four answerable and two unanswerable cases. Results are printed and saved in `evaluation\_results.json`.
+The first command runs offline tests with a fake client, no key or paid API usage. The second uses OpenAI and the included sample PDF in a temporary database, leaving your own library unchanged. Six questions cover four answerable and two unanswerable cases. Results are printed and saved in `evaluation\\\_results.json`.
 
 * Hit@4: fraction of answerable questions where a chunk containing the expected evidence is retrieved.
 * Keyword pass rate: fraction of answerable questions with expected English terms and a positive response. A proxy, not verified factual accuracy.
@@ -74,7 +74,7 @@ git add .
 git status --short
 git commit -m "Build PDF RAG assistant"
 git branch -M main
-git remote add origin https://github.com/YOUR\_USERNAME/YOUR\_REPO.git
+git remote add origin https://github.com/YOUR\\\_USERNAME/YOUR\\\_REPO.git
 git push -u origin main
 ```
 
@@ -135,4 +135,82 @@ and questions with missing information.
 These results are based on a small evaluation dataset
 
 and do not guarantee performance on all documents.
+
+
+
+
+
+**## Project Screenshots**
+
+
+
+**### Application Dashboard**
+
+**!\[Dashboard](screenshots/dashboard.png)**
+
+
+
+**### PDF Question Answering**
+
+**!\[Question Answering](screenshots/question-answer.png)**
+
+
+
+**### Retrieved Evidence**
+
+**!\[Retrieved Evidence](screenshots/retrieved-evidence.png)**
+
+
+
+**### Hallucination Handling**
+
+**!\[Hallucination Handling](screenshots/hallucination-test.png)**
+
+
+
+**### Document Filtering**
+
+**!\[Document Filtering](screenshots/document-filtering.png)**
+
+
+
+**## Testing and Evaluation**
+
+
+
+**| Metric | Result |**
+
+**|---|---|**
+
+**| Unit Tests | 6/6 Passed |**
+
+**| Live Evaluation | 6/6 Passed |**
+
+**| Hit@4 | 100% |**
+
+**| Keyword Pass Rate | 100% |**
+
+**| Evidence Citation Rate | 100% |**
+
+**| Abstention Rate | 100% |**
+
+
+
+**### Unit Testing**
+
+**!\[Unit Tests](screenshots/unit-tests.png)**
+
+
+
+**### Live Evaluation**
+
+**!\[Live Evaluation](screenshots/live-evaluation.png)**
+
+
+
+**The evaluation results are based on a small test**
+
+**dataset and do not guarantee the same performance**
+
+**on all documents and questions.**
 
